@@ -31,7 +31,15 @@ NULL(boş) veya birbirinin aynı olan değerleri içeremez.
 
 **İkincil Anahtar (Foreign Key)** İki tablo arasında bağlantı (ilişki) varsa bir tablodaki bir sütun diğer tablonunun birincil anahtarı ise bu sütuna ikincil anahtar denilir.  
 
+---
+
+<br>
+
 ![Tablo Örneği](./images/ornek_tablosu.png)
+
+---
+
+<br>
 
 **İlişkilendirme(join)** Tek sorgu ile birden fazla tablodan bilgi alama işlemine ilişkilendirme denilir.  
 
@@ -41,9 +49,15 @@ Farklı join türleri vardır:
 - Right Outer Join  
 - Full Outer Join
 
+---
+
 <br>
 
 ![Tablo Örneği](./images/iliskilendirme_ornek.png)
+
+---
+
+<br>
 
 ### Veritabanı Yönetim Sistemleri ###  
 
@@ -63,7 +77,9 @@ Farklı join türleri vardır:
 - Sorgu Dili KUllanıcıları  
 - Son Kullanıcılar  
 
-## Veritabanı Tasarımı
+<br>
+
+## **Veritabanı Tasarımı**
 
 **Veritabanı tasarımında takip edilecek adımlar**  
 - Depolanacak verilerin belirlenmesi  
@@ -93,13 +109,20 @@ Farklı join türleri vardır:
 - Model içerisinde baklava dilimi ile gösterilir.  
 - İlişkiler 1-1,1-n,n-m olabilir.  
 
+---
+
 <br>
 
 ![tablo örneği](./images/iliski_ornekleri.png)
 
+---
+
 <br>
 
 ![tablo örneği](./images/tekrarli_iliski.png)
+
+---
+
 <br>
 
 ### Bire-bir (1-1) İlişkinin tabloya dönüştürülmesi
@@ -107,12 +130,16 @@ Farklı join türleri vardır:
 
 ![tablo örneği](./images/bire_bir_iliski.png)
 
+---
+
 <br>
 
 ### Bire-Çok veya Çoğa-Bir (1-n, n-1) İlişkilerin Tabloya Dönüştürülmesi
 İlişkinin n tarafındaki tabloya 1 tarafındaki tablonun birincil anahtarı yabancı anahtar olarak eklenir.
 
 ![tablo örneği](./images/bire_n_iliski.png)
+
+---
 
 <br>
 
@@ -122,10 +149,13 @@ Farklı join türleri vardır:
 
 ![tablo örneği](./images/coka_cok_iliski.png)
 
+---
+
 <br>
 
 ![tablo örneği](./images/degerli_nitelik_tablosu.png)
 
+--- 
 <br>
 
 ![tablo örneği](./images/zayif_varlik_tablosu.png)
