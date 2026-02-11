@@ -3,7 +3,7 @@
 # İçerik
 - [Temel Kavramlar](#temel-kavramlar)  
 - [Veritabanı Tasarımı](#veritabanı-tasarımı)  
-- [Er Diyagramı](#er-diyagrami)  
+- [ER Diyagramı](#er-diyagramı)  
 - [Veritabanı Normalizasyonu](#veritabanı-normalizasyonu)  
 - [İlişkisel Cebir](#ilişkisel-cebir)  
 - [SQL ve DDL ](#sql-ve-ddl)  
@@ -160,3 +160,214 @@ Farklı join türleri vardır:
 
 ![tablo örneği](./images/zayif_varlik_tablosu.png)
 
+--- 
+<br>
+
+## ER-Diyagramı 
+
+1. Her uçağın bir kayıt numarası vardır ve her bir uçak bir modele aittir. 
+2. Havaalanında belirli sayıda uçak modelleri vardır ve herbir modelin bir kapasitesi, 
+ağırlığı ve model numarası vardır. 
+3. Havaalanında belirsi sayıda teknisyen çalışır. Herbir teknisyenın ismi, TC kimlik 
+nosu, adresi, telefonu ve maaş bilgisi tutulur. 
+4. Herbir teknisyen bir veya birden fazla uçak modelinde uzmandır ve tekniskenlerin 
+uzmanlıkları diğer teknisyenlerinkiyle çakışabilir yani aynı olabilir. Bu bilgi de 
+tutulmalıdır. 
+5. Trafik kontrolörleri yıllık check-uptan geçirilmelidir. Herbir kontrolör için, en son 
+yapılan check up un tarihi tutulur. 
+6. Herbir havaalanı işçisi bir sendikaya üyedir (teknisyenler de dahil). Herbir işçinin 
+sendika üyelik numarası, ve ayrıca TC kimlik numarası kaydedilmelidir. 
+7. Havaalanı ve uçakların güvenliği için, havaalanı periyodik olarak belli sayıda teste 
+tabi tutulur. Herbir testin Türk Hava Kurumu (THK) tarafından belirlenen bir test 
+numarası, ismi, ve maksimum alınabilecek notu bulunur. 
+8. THK, havaalanları tarafından test edilen uçakların bilgilerinin (yani ne zaman test 
+edildi, hangi teknisyen tarafından ve hangi testler kullanılarak) tutulmasını şart 
+koşar. Herbir test etme işlemi için, gerekli olan bilgiler, tarih, teknisyenın  test 
+yaparken harcadığı saat, ve test sonucunda uçağın aldıgı not.
+
+---
+
+1. Verilen hikayeye göre ER diyagramını çiziniz? 
+2. Gerekli olabilecek şartları (constraint) belirleyiniz? 
+3. ER diyagramı tarafından gösterilemeyen şartlar 
+constraint() var mıdır? Bunları belirtiniz. 
+4. İlişki türlerini belirleyiniz? 
+5. Tablo yapılarını oluşturunuz? 
+6. ER diyagramını çizdiğiniz havaalanı veritabanını SQL cümleleri kullanarak oluşturunuz 
+
+---
+
+<br>
+
+**Birinci sorunun cevabı:**  
+
+![cevap_bir](./images/cevap1_er_diyagrami.png)
+
+---
+
+<br>
+
+**İkinci sorunun cevabı:**  
+
+1. Her uçağın bir modeli olmalıdır (Toplam katılım)
+2. Her teknisyen en az bir modelde uzman olmalıdır
+3. Her test etme işleminde bir teknisyen, bir uçak ve bir test bulunmalıdır
+4. TC Kimlik no tüm işçiler için tekil olmalıdır
+5. Sendika üyelik numarası tüm işçiler için tekil olmalıdır
+6. Bir kişi hem teknisyen hem kontrolör olamaz (Ayrık inheritance)
+7. Test notu maksimum notu geçemez
+8. Her kontrolörün en az bir check-up tarihi olmalıdır
+
+---
+
+<br>
+
+**Üçüncü sorunun cevabı:**  
+
+1. Test sonucu (AlınanNot) <= Test.MaksNot
+2. Teknisyen maaşı > 0
+3. Tarih bilgisi geçmiş veya bugün olabilir, gelecek olamaz
+4. Harcanan saat > 0
+5. Telefon numarası format kontrolü
+6. TC Kimlik no format kontrolü (11 haneli, vb.)
+7. Uçak kapasitesi > 0
+8. Uçak ağırlığı > 0
+
+---
+
+<br>
+
+**Dördüncü sorunun cevabı:**  
+
+1. Tip - UÇAK ile MODEL arasında - M:N (Uçak zayıf varlık ama M:N ilişkide zayıf varlık olamaz ki?)
+2. Uzman - TEKNİSYEN ile MODEL arasında - M:N
+3. Gerçekleştirir - TEKNİSYEN ile UÇAK arasında - M:N
+4. Uygulanır - TEST ile UÇAK arasında - M:N
+5. Kullanır - TEKNİSYEN ile TEST arasında - M:N
+6. IS_A - İŞÇİ ile TEKNİSYEN/KONTROLÖR arasında - 1:1
+
+---
+
+<br>
+
+**Beşinci sorunun cevabı:**  
+
+- **MODELLER tablosu**  
+MODEL(ModelNo, Kapasite, Ağırlık)  
+PK: ModelNo  
+
+- **UÇAK tablosu**  
+UCAK(KayıtNo, ModelNo)  
+PK: KayıtNo  
+FK: ModelNo references MODEL(ModelNo)  
+
+- **İŞÇİ tablosu**  
+ISCI(TC_NO, Sendika_no)  
+PK: TC_NO  
+UK: Sendika_no (NOT NULL + UNIQUE)
+
+- **TEKNİSYEN tablosu**  
+TEKNISYEN(TC_NO, İsim, Adres, Tel, Maas)  
+PK: TC_NO  
+FK: TC_NO references ISCI(TC_NO)  
+
+- **KONTROLÖR tablosu**  
+KONTROLOR(TC_NO, Check_tarih)  
+PK: TC_NO  
+FK: TC_NO references ISCI(TC_NO)  
+
+- **UZMAN tablosu**   
+UZMAN(Model_no, TC_NO)  
+PK: (Model_no, TC_NO)  
+FK: TC_NO references TEKNISYEN(TC_NO)  
+FK: Model_no references MODEL(Model_no)  
+
+- **TEST tablosu**  
+TEST(THK_No, Isim, Not)  
+PK: THK_No  
+
+- **TEST_bilgi tablosu**  
+TEST_bilgi(THK_No, TC_NO, Kayit_no, saat, tarih, not)  
+PK: (THK_No, TC_NO, Kayit_no, saat, tarih)  
+FK: THK_No references TEST(THK_No)  
+FK: Kayıt_no references UCAK(Kayıt_no)  
+FK: TC_No references TEKNISYEN(TC_No)  
+
+
+
+---
+
+<br>
+
+**Altıncı sorunun cevabı:** 
+
+```sql
+-- 1. MODELLER tablosu
+CREATE TABLE MODEL (
+    ModelNo INT PRIMARY KEY,
+    Kapasite INT NOT NULL CHECK (Kapasite > 0),
+    Agirlik DECIMAL(10,2) NOT NULL CHECK (Agirlik > 0)
+);
+
+-- 2. UÇAK tablosu
+CREATE TABLE UCAK (
+    KayitNo VARCHAR(20) PRIMARY KEY,
+    ModelNo INT NOT NULL,
+    FOREIGN KEY (ModelNo) REFERENCES MODEL(ModelNo)
+);
+
+-- 3. İŞÇİ tablosu
+CREATE TABLE ISCI (
+    TC_NO CHAR(11) PRIMARY KEY,
+    Sendika_no INT NOT NULL UNIQUE
+);
+
+-- 4. TEKNİSYEN tablosu
+CREATE TABLE TEKNISYEN (
+    TC_NO CHAR(11) PRIMARY KEY,
+    Isim VARCHAR(100) NOT NULL,
+    Adres VARCHAR(200),
+    Tel VARCHAR(15),
+    Maas DECIMAL(10,2) NOT NULL CHECK (Maas > 0),
+    FOREIGN KEY (TC_NO) REFERENCES ISCI(TC_NO)
+);
+
+-- 5. KONTROLÖR tablosu
+CREATE TABLE KONTROLOR (
+    TC_NO CHAR(11) PRIMARY KEY,
+    Check_tarih DATE NOT NULL,
+    FOREIGN KEY (TC_NO) REFERENCES ISCI(TC_NO),
+    CHECK (Check_tarih <= CURRENT_DATE)
+);
+
+-- 6. UZMAN tablosu 
+CREATE TABLE UZMAN (
+    Model_no INT,
+    TC_NO CHAR(11),
+    PRIMARY KEY (Model_no, TC_NO),
+    FOREIGN KEY (TC_NO) REFERENCES TEKNISYEN(TC_NO),
+    FOREIGN KEY (Model_no) REFERENCES MODEL(ModelNo)
+);
+
+-- 7. TEST tablosu
+CREATE TABLE TEST (
+    THK_No INT PRIMARY KEY,
+    Isim VARCHAR(100) NOT NULL,
+    Not_ INT NOT NULL CHECK (Not_ > 0)
+);
+
+-- 8. TEST_bilgi tablosu
+CREATE TABLE TEST_bilgi (
+    THK_No INT,
+    TC_NO CHAR(11),
+    Kayit_no VARCHAR(20),
+    saat DECIMAL(5,2) NOT NULL CHECK (saat > 0),
+    tarih DATE NOT NULL,
+    not_ INT NOT NULL,
+    PRIMARY KEY (THK_No, TC_NO, Kayit_no, saat, tarih),
+    FOREIGN KEY (THK_No) REFERENCES TEST(THK_No),
+    FOREIGN KEY (Kayit_no) REFERENCES UCAK(KayitNo),
+    FOREIGN KEY (TC_NO) REFERENCES TEKNISYEN(TC_NO),
+    CHECK (not_ <= (SELECT Not_ FROM TEST WHERE TEST.THK_No = THK_No))
+);
+```
