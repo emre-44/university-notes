@@ -13,7 +13,7 @@
 - [SQL Transaction Yönetimi](#sql-transaction-yönetimi)  
 - [Btree](#btree)  
 - [Sorgu Optimizasyonu](#sorgu-optimizasyonu)  
-
+- [Vize ve Final Çalışması](vize_ve_final.md) (Bu kısım dönem bitince eklenecek)
 ## Temel Kavramlar
 Sıralı Erişimli Dosyalar = Static Array  
 Doğrudan Erişimli Dosyalar = Dynamic Array  
@@ -32,13 +32,11 @@ NULL(boş) veya birbirinin aynı olan değerleri içeremez.
 **İkincil Anahtar (Foreign Key)** İki tablo arasında bağlantı (ilişki) varsa bir tablodaki bir sütun diğer tablonunun birincil anahtarı ise bu sütuna ikincil anahtar denilir.  
 
 ---
-
 <br>
 
 ![Tablo Örneği](./images/ornek_tablosu.png)
 
 ---
-
 <br>
 
 **İlişkilendirme(join)** Tek sorgu ile birden fazla tablodan bilgi alama işlemine ilişkilendirme denilir.  
@@ -50,13 +48,11 @@ Farklı join türleri vardır:
 - Full Outer Join
 
 ---
-
 <br>
 
 ![Tablo Örneği](./images/iliskilendirme_ornek.png)
 
 ---
-
 <br>
 
 ### Veritabanı Yönetim Sistemleri ###  
@@ -110,19 +106,16 @@ Farklı join türleri vardır:
 - İlişkiler 1-1,1-n,n-m olabilir.  
 
 ---
-
 <br>
 
 ![tablo örneği](./images/iliski_ornekleri.png)
 
 ---
-
 <br>
 
 ![tablo örneği](./images/tekrarli_iliski.png)
 
 ---
-
 <br>
 
 ### Bire-bir (1-1) İlişkinin tabloya dönüştürülmesi
@@ -131,7 +124,6 @@ Farklı join türleri vardır:
 ![tablo örneği](./images/bire_bir_iliski.png)
 
 ---
-
 <br>
 
 ### Bire-Çok veya Çoğa-Bir (1-n, n-1) İlişkilerin Tabloya Dönüştürülmesi
@@ -140,7 +132,6 @@ Farklı join türleri vardır:
 ![tablo örneği](./images/bire_n_iliski.png)
 
 ---
-
 <br>
 
 ### Çoğa-Çok (n-m) İlişkilerin Tabloya Dönüştürülmesi  
@@ -150,7 +141,6 @@ Farklı join türleri vardır:
 ![tablo örneği](./images/coka_cok_iliski.png)
 
 ---
-
 <br>
 
 ![tablo örneği](./images/degerli_nitelik_tablosu.png)
@@ -196,7 +186,6 @@ constraint() var mıdır? Bunları belirtiniz.
 6. ER diyagramını çizdiğiniz havaalanı veritabanını SQL cümleleri kullanarak oluşturunuz 
 
 ---
-
 <br>
 
 **Birinci sorunun cevabı:**  
@@ -204,7 +193,6 @@ constraint() var mıdır? Bunları belirtiniz.
 ![cevap_bir](./images/cevap1_er_diyagrami.png)
 
 ---
-
 <br>
 
 **İkinci sorunun cevabı:**  
@@ -219,7 +207,6 @@ constraint() var mıdır? Bunları belirtiniz.
 8. Her kontrolörün en az bir check-up tarihi olmalıdır
 
 ---
-
 <br>
 
 **Üçüncü sorunun cevabı:**  
@@ -234,7 +221,6 @@ constraint() var mıdır? Bunları belirtiniz.
 8. Uçak ağırlığı > 0
 
 ---
-
 <br>
 
 **Dördüncü sorunun cevabı:**  
@@ -247,7 +233,6 @@ constraint() var mıdır? Bunları belirtiniz.
 6. IS_A - İŞÇİ ile TEKNİSYEN/KONTROLÖR arasında - 1:1
 
 ---
-
 <br>
 
 **Beşinci sorunun cevabı:**  
@@ -293,10 +278,7 @@ FK: THK_No references TEST(THK_No)
 FK: Kayıt_no references UCAK(Kayıt_no)  
 FK: TC_No references TEKNISYEN(TC_No)  
 
-
-
 ---
-
 <br>
 
 **Altıncı sorunun cevabı:** 
@@ -371,3 +353,115 @@ CREATE TABLE TEST_bilgi (
     CHECK (not_ <= (SELECT Not_ FROM TEST WHERE TEST.THK_No = THK_No))
 );
 ```
+---
+<br>
+
+## Veritabanı Normalizasyonu  
+
+**Normalizsyonun amacı:**   
+- Veri bütünlüğünü sağlamak 
+- Uygulamadan bağımsızlık 
+- Performansı arttırmak 
+
+---
+<br>
+
+**Normalizasyon Kuralları**  
+- Normalizasyon “ normal form” ismi verilen kurallara göre yapılır.  
+- Normalizyon kuralları çok fazla olabilmektedir. Ancak genellikle üçüncü normal formdan sonrası uygulanmaz.  
+- Normal formlar sırası ile uygulanmalıdır.  
+
+---
+<br>
+
+**Fonksiyonel Bağımlılık**  
+- R ilişkisi X ve Y nitelik kümelerinden oluşmaktadır.  
+- Eğer X nitelik kümesinin değerleri Y nitelik kümesinin değerlerini belirliyorsa, Y niteliği X niteliğine fonksiyonel bağımlıdır denilir.  
+- X->Y  şeklinde gösterilir.  
+- X’in herbir değeri Y’nin bir değerine karşılık geldiği durumlarda da fonksiyonel bağımlılık söz konusudur.  
+- Eğer X nitelik kümesinden bir nitelik çıkarıldığı halde bağımlılık 
+devam ediyorsa buna kısmi bağımlılık denilir.  
+- Anahtar sütuna bağımlı olmayan bağımlılığa geçişli bağımlılık denilir.  
+
+![örnek](./images/fonksiyonel_bagimlilik.png)
+
+---
+<br>
+
+### 1. Normal Form - 1NF  
+
+**1NF Kuralları** 
+- Veriabanında bulunan tablolar ilişkilendirilebilir bir şekilde tasarlanmalıdır.
+- Birden fazla türde bilgi tek bir sütunda olamaz. 
+- Bir alan içerisindeki bilgi özel karakterlerle ayrılarak tutulmamalıdır. 
+
+![örnek](./images/1nf_örnek.png)
+
+---
+**1NF Sorunları**  
+- 1NF sonucunda tablo, tekrarlı satırlara sahip olacağı için satır ekleme, silme ve güncelleme sorunları olabilmektedir. 
+- **Satır ekleme sorunu**  
+    - Öğrenci tablosuna yeni bir öğrenci veya bölüm tanımlanması yapılabilmesi için ders kodu ve sınav bilgilerinin girilmesi zorunludur.  
+- **Satır silme sorunu** 
+    - Öğrenci tablosunda bir bölüm için sadece bir öğrenci kayıtlı olursa öğrenci silindiğinde bölüm de silinecektir 
+- **Satır güncelleme sorunu** 
+    - Öğrenci tablosunda bir öğrencinin bölümü değiştiğinde birden fazla kaydın güncellenmesi gerekecektir.  
+    - Bu durum çok fazla veri içeren veritabanları için performans sorunlarına neden olacaktır.
+
+---
+<br>
+
+### 2. Normal Form - 2NF  
+
+- 1NF’ de karşılaşılan problemleri çözmek için uygulanır.
+- 2NF’de fonksiyonel bağımlılıklar belirlenerek tablolar oluşturulur.
+
+**2NF Kuralları**
+- Bir tablo içinde tanımlı ve anahtar olmayan her sütun birincil anahtar olarak tanımlı sütuna bağımlı olmalıdır. Anahtar sütunun ihtiyaç duyduğu bilgileri içermelidir. 
+    - Öğrenci bilgilerinin olduğu tabloda not ve ders bilgisinin olması gereksizdir . 
+    - Notlar ile ilgili asıl klavuz öğrenci numarasıdır bölüm veya  bölum kodu bilgilerinin ayrıntılı tutulmasına gerek yoktur.  
+    - Bu durumda öğrenci bilgileri ve not bilgileri ayrı tablolarda tutulur
+- Anahtar sütun birden fazla sütunun birleşiminden oluşuyorsa tabloda 
+yer alacak veriler iki sütuna da bağımlı olmalıdır.  
+    - Tek sütuna bağımlı ise ayrı bir tabloda tutulmalıdır.  
+    - Veriabanında bulunan tablolar ilişkilendirilebilir bir şekilde tasarlanmalıdır. 
+
+![örnek](./images/2nf_örnek.png)
+
+**2NF Sorunları**  
+
+- **Satır ekleme sorunu**  
+    - Öğrenci tablosuna yeni bir bölüm tanımlanması yapılabilmesi öğrenci 
+tanımlanması zorunludur.  
+- **Satır silme sorunu** 
+    - Öğrenci tablosunda bir bölüm için sadece bir öğrenci kayıtlı olursa öğrenci silindiğinde bölüm de silinecektir 
+
+---
+<br>
+
+### 3. Normal Form - 3NF  
+-  3NF’de geçişli bağımlılıklar ortadan kaldırılır.
+- 3NF’de  
+    - anahtar olmayan bir sütun, başka bir tablonun anahtar sütunu veya bulunduğu tablonun sütunları ile ilgili olmalıdır veya  
+    - bir tablo için anahtar olmayan bir sütun anahtar olmayan başka bir sütuna bağımlı olamaz. 
+
+![örnek](./images/3nf_örnek.png)
+
+---
+<br>
+
+![örnek](./images/normalizasyon_örnek1.png)
+
+---
+<br>
+
+![örnek](./images/normalizasyon_örnek2.png)
+
+---
+<br>
+
+![örnek](./images/fatura_normalizasyon.png)
+
+**Bu örneğinin normalizasyonu:**  
+
+![cevap](./images/fatura_normalizasyon_cevap.png)
