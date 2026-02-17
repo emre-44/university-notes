@@ -12,7 +12,7 @@ model** olarak tanımlanır.
 
 **Sayısal Yöntemlerin Uygulanması**
 
-![tabla](./images/sayısal_yöntemlerin_uygulanması.png)
+![tablo](./images/sayısal_yöntemlerin_uygulanması.png)
 
 ---
 
