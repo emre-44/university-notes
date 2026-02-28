@@ -4,7 +4,7 @@
 
 - [Giriş](giris.md)
 - [Limit - Türev - İntegral](#limit-türev-integral)
-- [Hata Kavramı](#hata-kavramı)
+- [Hata Kavramı](hata-kavramı.md)
 - [Lineer Olmayan Denklemler](#lineer-olmayan-denklemler)
 - [Kapalı Aralık Çözümleri](#kapalı-aralık-çözümleri)
 - [Açık Aralık Çözümleri](#açık-aralık-çözümleri)
