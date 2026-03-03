@@ -159,3 +159,219 @@ Bilgisayar ağlarına yönelik saldırıları tespit etmek ve önlemek için gü
 - **Dinleme (Sniffing - Packet Capture):** Ağ trafiğini pasif olarak izleyerek, ağ üzerinden geçen verilerin (şifre, e-posta vb.) kopyalanması.
 
 - **IP Sahteciliği (IP Spoofing):** Bir saldırganın, güvenilir bir kaynakmış gibi görünmek için gönderdiği paketlerin kaynak IP adresini değiştirmesi.
+
+<br>
+
+# Application Layer
+
+## 1. Network Uygulaması Nedir?
+
+Farklı tipteki son kullanıcı cihazlarında çalışacak şekilde tasarlanan yazılımlardır.
+
+### İki Temel Mimari
+
+**Client-Server Mimarisi**
+- **Server**: Sürekli aktif, kalıcı IP adresine sahip tek bir sunucu bulunur
+- **Clients**: Sunucuya bağlanır, veri transferi yapar ve bağlantıyı sonlandırır
+- İstemciler birbiriyle doğrudan haberleşmez, her zaman sunucu üzerinden iletişim kurar
+
+**Peer-to-Peer (P2P) Mimarisi**
+- Merkezi sunucu yoktur
+- Son kullanıcılar doğrudan birbiriyle haberleşir
+- Ölçeklendirilebilir ancak yönetimi karmaşıktır
+
+**Hibrit Mimari**
+- Client-server ve P2P birlikte çalışır (Örnek: Skype)
+
+---
+
+## 2. Temel Kavramlar
+
+**Process (İşlem)**: Bir host üzerinde çalışan program
+
+**Inter-process Communication**:
+- Aynı host üzerindeki process'lerin haberleşmesi
+- Farklı host'lar üzerindeki process'lerin haberleşmesi
+
+**Socket (Soket)**: 
+- Taşıma katmanı ile uygulama katmanı arasındaki kapı
+- Gönderici ve alıcı arasındaki mesajları yönlendirir
+
+**Addressing (Adresleme)**:
+- **IP Adresi**: Cihazı tanımlar (32-bit, örn: 128.119.245.12)
+- **Port Numarası**: Cihazdaki uygulamayı tanımlar (örn: 80)
+
+---
+
+## 3. Uygulama Katmanı Protokolleri
+
+**Protokol Bileşenleri**:
+- Mesaj sözdizimi (syntax)
+- Kurallar
+
+**Protokol Türleri**:
+- **Açık Protokoller**: HTTP, SMTP
+- **Özel (Proprietary) Protokoller**: Skype
+
+---
+
+## 4. Uygulama Katmanının Taşıma Katmanından İstediği Servisler
+
+1. **Data Integrity**: Mesaj bütünlüğü
+2. **Timing**: Zamanlama hassasiyeti, minimum gecikme
+3. **Throughput**: Minimum bant genişliği tahsisi (esnek olabilir)
+4. **Security**: Veri şifreleme
+
+---
+
+## 5. Taşıma Katmanı Protokolleri
+
+### TCP Servisi
+- Güvenilir veri transferi
+- Akış kontrolü (Flow control)
+- Tıkanıklık kontrolü (Congestion control)
+- Timing ve throughput garantisi vermez
+
+### UDP Servisi
+- Güvenilirlik garantisi yok (veri kaybolabilir, bozulabilir)
+- Akış kontrolü yok
+- Tıkanıklık kontrolü yok
+- Hızlı veri iletimi
+
+### Güvenli TCP (SSL)
+- TCP üzerinden gönderilen verileri şifreler
+
+---
+
+## 6. WEB ve HTTP
+
+**HTTP (Hypertext Transfer Protocol)**
+- Web'in uygulama katmanı protokolü
+- Client-server model kullanır
+- TCP kullanır
+- Stateless (durumsuz) - geçmiş istekleri hatırlamaz
+
+### HTTP Bağlantı Tipleri
+
+**Non-persistent HTTP (Kalıcı Olmayan)**
+- Her obje için ayrı bağlantı
+- Transfer süresi: 2RTT + Dosya iletim süresi
+- RTT: Küçük paketin gidiş-dönüş süresi
+
+**Persistent HTTP (Kalıcı)**
+- Tek bağlantı üzerinden birden fazla obje transferi
+
+### HTTP Mesaj Tipleri
+
+**Request (İstek) Mesajı**
+- **GET**: Bilgiler URL'de açık gider
+- **POST**: Bilgiler gizli gider (form, arama)
+
+**Response (Cevap) Mesajı**
+
+### HTTP Response Status Codes
+
+| Kod | Anlamı |
+|-----|--------|
+| 200 | OK (Başarılı) |
+| 301 | Moved Permanently (Kalıcı taşınma) |
+| 400 | Bad Request (Anlaşılmayan istek) |
+| 404 | Not Found (Bulunamadı) |
+| 505 | HTTP Version Not Supported |
+
+---
+
+## 7. Cookies (Çerezler)
+
+**4 Temel Bileşen**:
+1. HTTP response message
+2. HTTP request message
+3. Cookie user's host
+4. Web backend database
+
+**Kullanım Alanları**:
+- Kimliklendirme (authorization)
+- Alışveriş sepetleri
+- Tavsiyeler (recommendations)
+
+---
+
+## 8. Web Caches (Proxy Server)
+
+**Amaç**: Dosyalara hızlı erişim sağlamak
+
+**Çalışma Prensibi**:
+- İstemci doğrudan origin server'a değil, proxy server'a bağlanır
+- Kurumsal çıkış hattı trafiğini azaltır
+- Üniversiteler ve büyük kurumlarda yaygın kullanılır
+
+---
+
+## 9. FTP (File Transfer Protocol)
+
+- TCP tabanlı protokol
+- Çift yönlü veri transferi
+- Stateful (durumlu) - önceki bağlantı bilgilerini tutar
+- Web'den farkı: Sadece dosya transferi değil, çift yönlü iletişim
+
+---
+
+## 10. Electronic Mail (E-posta)
+
+**3 Temel Bileşen**:
+1. **User Agents**: Mesaj oluşturma, düzenleme
+2. **Mail Servers**: 
+   - Mailbox (gelen kutusu)
+   - Message queue (gönderim kuyruğu)
+3. **SMTP**: Mail sunucuları arası iletişim protokolü
+
+### SMTP (Simple Mail Transfer Protocol)
+- TCP protokolü (port 25)
+- Güvenilir
+- Persistent (kalıcı) bağlantı
+- Push görevi yapar
+- Çoklu obje gönderimi
+
+### Posta Erişim Protokolleri
+
+| Protokol | Özellikler |
+|----------|------------|
+| POP | Sunucudan transfer, sunucuda dosya kalmaz |
+| POP3 | Gelişmiş, mesaj kopyası oluşturabilme |
+| IMAP | Klasörleme, kullanıcı gruplama |
+
+---
+
+## 11. DNS (Domain Name System)
+
+**Görev**: Alan adını IP adresine çevirme
+
+### DNS Sunucu Hiyerarşisi
+
+1. **Root DNS Servers** (Kök Sunucular)
+2. **TLD Servers** (Üst Seviye Domain):
+   - .com, .org, .edu, .net, .museum
+3. **Authoritative DNS** (Yetkilendirilmiş):
+   - Kuruma ait sunucular (örn: erciyes.edu.tr)
+4. **Local DNS Server**:
+   - İSS, şirket veya kuruma ait varsayılan name server
+   - Cache görevi görür
+
+### DNS Sorgulama Tipleri
+
+**Iterated Query**: Yük local DNS server'da
+**Recursive Query**: Yük root ve TLD sunucularında
+
+### DNS Özellikleri
+- **Caching**: Önbellekleme
+- **Updating**: Adres değişimi
+
+### DNS Kayıt Tipleri
+Format: (name, value, type, ttl)
+
+| Type | Name | Value |
+|------|------|-------|
+| A | hostname | IP address |
+| NS | domain | Yetkili DNS sunucu adresi |
+| CNAME | takma isim | canonical (gerçek) isim |
+| MX | mail sunucu adı | mail sunucu adresi |
