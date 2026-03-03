@@ -59,3 +59,64 @@ Bu nedenlerle geliştirilen sistemin 3 ilkesi:
 zorunda kalması
 
 ![örnek](./images/toplu_taşıma_sistemi.png)
+
+## Sistem Modelleri
+**Model:** Var olan gerçek olayın soyut bir gösterimi veya temsili
+
+### SÖZLÜ (KAVRAMSAL) MODELLER
+Sözcüklerin kullanıldığı en eski ve en genel olanı  
+Avantajları:
+- Düşük maliyet
+- Kolay kurulabilir
+- Karmaşık olmayan sistemlerde kolay anlaşılabilir  
+
+Dezavantajları:
+- Sözcüklere farklı insanlar tarafından farklı anlamlar yüklenebileceğinden yanlış anlaşılmalara 
+sebebiyet verebilir
+
+### ŞEMATİK MODELLER
+Sözlü modeldeki yanlış anlaşılmaların önüne geçer. Algılamadaki etkinliği arttırır.
+
+Aşağıdaki başlıkların her biri şematik modeldir.  
+
+**GRAFİKLER**
+
+![Grafik 1](./images/şematik_model_grafik1.png)
+
+![Grafik 2](./images/şematik_model_grafik2.png)
+
+---
+**GANT ŞEMASI**
+Henry Gantt tarafından tasarlanan, proje yönetim tekniğinin önemli tekniklerinden birisidir.  
+İş yönetiminde zaman planlamasını sağlar.  
+
+![Gant](./images/şematik_model_gant.png)
+--
+
+**AĞ DİYAGRAMLARI**  
+Görevleri, bağımlılıkları görüntülemeye yarar.  
+Sistemde bazı faaliyetlerin çözümlenmesi ve optimum sonuçlara ulaşabilmesi için kullanılır.  
+
+![Ağ](./images/şematik_model_ağ_diyagramı.png)
+--
+
+**KARAR AĞACI**  
+Sistemde kararlar alınırken bu kararların sistemi nereye götüreceğinin görselleştirilmesi için kullanılır.  
+Karar analizlerinde karmaşık sorunların araştırılmasında yaygın kullanılır.  
+
+![Karar](./images/şematik_model_karar_ağacı.png)
+--
+
+**ORGANİZASYON ŞEMASI**  
+Sistemdeki hiyearşiyi göstermek için kullanılır.  
+
+![Organizasyon](./images/şematik_organizasyon_şeması.png)
+--
+
+**SÜREÇ AKIŞ ŞEMASI**  
+Sistemde bulunan genel işin veya alt işlerin nasıl işlediğini göstermeye yarayan şematik model.  
+NPC(National Computing Centre) tarafından İngilterede geliştirilen simgelerle gösterim sağlanmakta.  
+
+![Şema Tablosu](./images/şematik_süreç_akış_tablosu.png)
+
+![Süreç Akış Şeması](./images/şematik_süreç_akış.png)
