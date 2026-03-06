@@ -6,7 +6,7 @@
 
 - [Hafta 1](#hafta-1)
 - [Hafta 2](#hafta-2)
-
+- [Hafta 3](#hafta-3)
 ## Hafta 1
 
 ### 1. GÖMÜLÜ SİSTEM NEDİR?
@@ -162,3 +162,72 @@ Neden kullanırız?
 ![Truth table](./images/full_adder-truh_table.png)
 
 ![Full Adder Devresi](./images/full_adder_devresi.png)
+
+## Hafta 3
+**Mikrodenetleyici üreticileri:** ARM, Intel, Microchip(PIC), Altera
+
+**8 Bit Mikrodenetleyici Özellikleri**
+- **Program belleği:** ROM, EPROM, EEPROM, Flash
+- **Veri belleği:** SRAM
+- **Kalıcı veri:** EEPROM
+
+<br>
+
+![Temel PIC Devresi](./images/temel_pic_devresi.png)
+
+**PIC16F84**
+
+![16f84](./images/pic16f84.png)
+
+**Güç Kaynağı**
+- **VDD:** Pozitif besleme (+5V)
+- **VSS:** Negatif besleme (GND)
+- **Çalışma aralığı:** 2V - 5.5V
+
+**Bellek Birimleri**
+- **Program belleği (ROM):** Kalıcı, değiştirilemez
+- **Flash bellek:** EEPROM tabanlı, silinip yazılabilir
+- **RAM:** Geçici veri saklama
+- **Bank kavramı:** 4 bank'a ayrılmış veri belleği, Status register ile bank seçimi
+
+**Temel Devreler**
+- **Pull-up:** Giriş boştayken lojik 1 okunmasını sağlar
+- **Pull-down:** Butona basılınca lojik 1 okunmasını sağlar
+
+**Osilatör (Kristal) Konfigürasyonları**  
+- PIC, osilatör frekansını (fosc) 4'e bölerek komut işleme frekansını (fkomut) oluşturur.
+- fkomut = fosc/4
+- Örnek: 20 MHz osilatör → 5 MHz komut frekansı → 0.2 µs'de bir komut
+- Osilatör tipleri: LP (düşük güç), XT (standart), HS (yüksek hız), RC (direnç-kondansatör)
+
+**CCS C Ön İşlemci Komutları**  
+- **#define:** Sabit tanımlama
+- **#include:** Mikrodenetleyici tanıtım dosyası ekleme
+- **#fuses:** Konfigürasyon bitleri (HS, NOWDT, NOLVP, NOPROTECT)
+- **#use delay(clock=...):** Gecikme komutu için osilatör frekansı bildirimi
+- **#use standard_io():** Port pin yönlendirmeleri için standart I/O
+
+**Port Giriş/Çıkış Komutları**
+- **set_tris_x():** Pinlerin giriş/çıkış yönünü belirler (1: giriş, 0: çıkış)
+- **output_low(pin):** Pini lojik 0 yapar
+- **output_high(pin):** Pini lojik 1 yapar
+- **output_x(değer):** Tüm portu çıkış olarak ayarlar
+- **input(pin):** Pin durumunu okur
+- **input_x():** Tüm portu okur  
+
+**Uygulama Örneği (Led Yakıp Söndürme)**  
+
+![Uygulama](./images/led_yakıp_söndürme.png)
+
+**Kesme (Interrupt)**  
+**Kesme:** Dış olayla programın kesilip önceden tanımlı fonksiyonun çalıştırılması  
+**Reset vektörü:** 0000h  
+**Kesme vektörü:** 0004h  
+
+![Kesme](./images/kesme_interrupt.png)
+
+<br>
+
+**Hafta 3 yapılan devreler**  
+
+![Hafta 3](./images/hafta3.png)
