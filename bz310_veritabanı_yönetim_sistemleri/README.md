@@ -5,7 +5,7 @@
 - [Veritabanı Tasarımı](#veritabanı-tasarımı)  
 - [ER Diyagramı](#er-diyagramı)  
 - [Veritabanı Normalizasyonu](#veritabanı-normalizasyonu)  
-- [İlişkisel Cebir](#ilişkisel-cebir)  
+- [İlişkisel Cebir](#i̇lişkisel-cebir)  
 - [SQL ve DDL ](#sql-ve-ddl)  
 - [SQLde Aritmetik Operatorler ve Fonksiyonlar](#sqlde-aritmetik-operatorler-ve-fonksiyonlar)  
 - [SQLde Alt Sorgular](#sqlde-alt-sorgular)
@@ -465,3 +465,179 @@ tanımlanması zorunludur.
 **Bu örneğinin normalizasyonu:**  
 
 ![cevap](./images/fatura_normalizasyon_cevap.png)
+
+## İlişkisel Cebir
+
+**Sorgu Çalışma Adımları**
+- SQL İfadesi
+- İlişkisel Cebir İfadesi
+- Sorgu Çalıştırma Planı
+- Çalıştırabilir Kod
+
+**Sorgu Operatörleri** 
+
+1. Seçim (Selection) 
+2. Göster (Atma - Projection) 
+3. Kartezyen Çarpımı (Cross-Product) 
+4. Birleşim (Union)  
+5. Küme Farkı (Set-difference)  
+6. Kesişim (Intersection)  
+7. Bölme (Division)  
+8. Birleştirme (Join) 
+9. Yeniden Adlandırma 
+10. Özetleme ve Gruplama
+
+**Birleştirme**
+- Şartlı Birleştirme (Condition Join) 
+- Eşit Birleştirme (Equijoin)  
+- Doğal Birleştirme (Natural Join) 
+- Dışsal Birleştirme (Outer Join) 
+- Sol Birleştirme (Left Outer Join) 
+- Sağ Birleştirme (Right Outer Join)  
+- Tam Birleştirme (Full Outer Join) 
+- Yarı Birleştirme (Semi-Join) 
+- Anti-Join
+
+### 1. Seçim (Selection) 
+- Bir ilişkiden, verilen kriterleri sağlayan satırların seçilmesi 
+işlemidir.  
+- σ seçim kriteri (Tablo Adı)   şeklinde gösterilir. 
+- Seçim kriterinde karşılaştırma operatörleri (=, >,<,≥, ≤, ≠) 
+kullanılabilir. 
+- Birden fazla seçim kriteri verilirken mantıksal ve (˄) veya mantıksal or (˅) kullanılabilir. 
+
+<br>
+
+![Sorgulama İçin Tablo](./images/sorgulama_için_örnek_tablo.png)
+
+**Seçim (Selection) Örnek** 
+- Bilgisayar bölümü öğrencilerini seçiniz? 
+- Numarası 1003’ten büyük öğrencileri seçiniz? 
+- Numarası 1003’ten büyük elektronik bölümü öğrencisini bulunuz? 
+
+![Cevaplar](./images/selection_cevap.png)
+
+### 2. Göster (Atma - Projection) Π
+- Bir ilişkiden; – verilen kriterleri sağlayan sütunları bulmak için – istenmeyen sütunları gizlemek için kullanılır.  
+- Π sütun isimleri (Tablo Adı)   şeklinde gösterilir. 
+- İki satır kaydı benzer ise nasıl çalışır. (!!!)  
+
+**Göster (Atma - Projection) Örnek** 
+- Öğrenci numaralarını ve bölümlerini göster. 
+- Bilgisayar bölümü öğrencilerinin numara ve isimlerini 
+listeleyiniz? 
+- Numarası 1003’ten büyük öğrencilerin bölümlerini 
+listeleyiniz? 
+- Numarası 1003’ten büyük elektronik bölümü öğrencilerin 
+isimleri nelerdir?
+
+![Projection Cevap](./images/projection_cevap.png)
+
+### 3. Kartezyen Çarpımı (Cross-Product) 
+- Bir tablodaki bütün satırların (kayıtların) diğer tablodaki bütün 
+satırlar (kayıtlar) ile eşleşmesidir.  
+- Tablo 1 × Tablo 2
+
+**Kartezyen Çarpımı Örnek**
+Ogrenci × Ders sonucu ne olur?
+- Öğrenci tablosundaki her bir öğrenci, ders tablosundaki her bir dersle eşleştirilir.
+
+![Kartezyen Cevap](./images/kartezyen_cevap.png)
+
+### 4. Birleşim (Union) U 
+- İki ilişkideki bütün satırları almak için kullanılır.  
+- İki ilişkinin de aynı sayıda sütunu olması gerekir. 
+- İki ilişkinin karşılıklı sütunlarının aynı tipte olması gerekir.  
+- İki ilişkide aynı satırlar varsa sadece bir tanesi alınır.  
+- Tablo 1 U Tablo 2
+
+![Union Örnek](./images/union_örnek.png)
+
+![Union Cevap](./images/union_örnek_cevap.png)
+
+### 5. Küme Farkı (Set-difference) 
+- İki ilişkiden birinde bulunup diğerinde bulunmayan kayıtları bulmak için kullanılır.  
+- İki ilişkinin de aynı sayıda sütunu olması gerekir. 
+- İki ilişkinin karşılıklı sütunlarının aynı tipte olması gerekir.  
+- Tablo 1 – Tablo 2
+
+### 6. Kesişim (Intersection) ∩ 
+- İki ilişkideki aynı satırları almak için kullanılır.  
+- İki ilişkinin de aynı sayıda sütunu olması gerekir. 
+- İki ilişkinin karşılıklı sütunlarının aynı tipte olması gerekir.  
+- Tablo 1 ∩ Tablo 2
+
+### 7. Bölme (Division) : 
+- İki ilişkiyi karşılaştırarak, birinci ilişkide ikinci ilişkinin bütün 
+elemanlarını kapsayan satırları bulmak için kullanılır.  
+- Tablo 1: Tablo 2 
+
+- Bütün bilgisayar derslerini alan öğrencileri bulunuz?
+
+![Division Örnek](./images/division_örnek.png)
+
+### 8. Birleştirme (Join)  
+- Ortak sütunlara sahip ilişkilerin birleştirilerek tek bir ilişkiye 
+dönüştürülmesi işlemidir.  
+
+**Birleştirme Çeşitleri**   
+- Şartlı Birleştirme  – Birleştirilecek ilişkilerde ortak sütunları için şart veya koşul belirtilir. – Tablo1 |X|c Tablo 2 
+- Eşit Birleştirme  – Birleştirilecek ilişkilerde ortak sütunları için eşitlik ifadesi belirtilir. – Tablo1 |X|e Tablo 2 
+- Doğal Birleştirme  – Birleştirilecek ilişkilerde herhangi bir şart yazılmaz ortak sütun sütun 
+üzerinden birleştirilir. – Tablo1 |X| Tablo 2
+
+![Birleştirme Örnek](./images/birleştirme_örnek.png)
+
+3. Numarası 1003’ten büyük öğrencilerin aldıkları dersleri 
+listeleyiniz?
+
+**π(d_kodu, d_adi, kredisi)((σ(ogr_no > 1003)(Öğrenci) ⋈ Notlar) ⋈ Ders)**
+
+4. Numarası 1003’ten büyük elektronik bölümü öğrencilerin 
+aldıkları dersler nelerdir?
+
+**π(d_kodu, d_adi, kredisi)(((σ(ogr_no > 1003)(Öğrenci) ⋈ σ(b_adi='Elektronik')(Bolum)) ⋈ Notlar) ⋈ Ders)**
+
+**Birleştirme Çeşitleri**  
+- **Sol Birleştirme (Left Outer Join)** – Soldaki ilişki belirleyicidir ve soldaki ilişkinin bütün satırları birleşime 
+girer. Bu durumda soldaki ilişki kayıtlarının sağlakilerle  ilişkisi olsun 
+olmasın fark etmez.  
+– Tablo1 ⟕ Tablo2 
+- **Sağ Birleştirme (Right Outer Join)** – Sağdaki ilişki belirleyicidir ve sağdaki ilişkinin bütün satırları birleşime 
+girer. Bu durumda sağdaki ilişki kayıtlarının soldakilerle ilişkisi olsun 
+olmasın fark etmez.  
+– Tablo1 ⟖ Tablo2 
+- **Tam Birleştirme (Full Outer Join)** – Her iki ilişkiden bütün kayıtlar birleşme işlemine dahil olacak  
+– Tablo1 ⟗ Tablo
+
+**Birleştirme Örnekler**
+1. Bütün öğrencilerin bölümlerini listeleyiniz?  
+**π(ogr_no, ogr_adi, bolum, b_adi)(Öğrenci ⟕ Bolum)**
+
+2. Bütün bölümlerin öğrencilerini listeleyiniz?  
+**π(b.b_kodu, b.b_adi, o.ogr_no, o.ogr_adi)(Öğrenci ⟖ Bolum)**
+
+3. Öğrenci ve bölüm üzerinde tam birleştirme uygulayınız?  
+**π(ogr_no, ogr_adi, o.bolum, b.b_kodu, b.b_adi)(Öğrenci ⟗ Bolum)**
+
+### 9. Yeniden Adlandırma (Renaming)  
+- İlişkilere ve ilişkilerin içerdiği sütunları yeniden isimlendirme 
+de kullanılır. 
+- ρ ile gösterilir. 
+- ρs (b1, b2, .., bn) (R)   R ilişkisi için s ismi verilir ve 
+sutunlarınada b1, b2, .., bn isimleri verilir.  
+
+### 10. Özetleme ve Gruplama 
+- Özetleme ve gruplama operatörleri SUM, COUNT, AVERAGE, 
+MAX ve MİN’dir.  
+- [Gruplandırılacak sütun] ℊ [fonksiyon adı] [sütun adı] Tablo İsmi 
+
+**Özetleme ve Gruplama Örnekler**
+1. En vize notu olan öğrencinin bölümünü bulunuz?  
+**π(ogr_adi, bolum, b_adi)((σ(vize = ℊ MAX(vize)(Notlar))(Notlar) ⋈ Öğrenci ⋈ Bolum)**
+
+2. Derslerin ortalama vize ortalamalarını hesaplayınız?  
+**ders_kodu ℊ AVG(vize) AS ortalama_vize (Notlar)**
+
+3. Bölümü bilgisayar olan öğrencilerin en yüksek vizeli olanını bulunuz?  
+**π(ogr_no, ogr_adi, vize)(σ(vize = ℊ MAX(vize)(BilgisayarNotlar))((σ(b_adi='Bilgisayar')(Bolum) ⋈ Öğrenci ⋈ Notlar)))**
