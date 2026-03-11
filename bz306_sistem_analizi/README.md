@@ -120,3 +120,108 @@ NPC(National Computing Centre) tarafından İngilterede geliştirilen simgelerle
 ![Şema Tablosu](./images/şematik_süreç_akış_tablosu.png)
 
 ![Süreç Akış Şeması](./images/şematik_süreç_akış.png)
+
+## Sistem Analiz Aşamaları
+
+Bir araştırma ve problem çözme yaklaşımı (sistem analizi)
+- Sistem analizi ile 
+- sistemin çözümlenmesi, 
+- sorunun belirlenmesi, 
+- hedeflerin ortaya konması, 
+- alternatiflerin belirlenmesi, araştırılması, değerlendirilmesi, seçilmesi
+- Düzenleme, uygulama ve monitoring
+- izlenecek yolun en uygun seçiminin yapılması sağlanır.
+- Daha etkin bir biçimde işleyen süreçlerin oluşması sağlanır.
+
+
+![Aşama 1](./images/sistem_analiz_aşaması1.png)
+![Aşama 2](./images/sistem_analiz_aşaması2.png)
+
+**1. Sistemin İncelenmesi**  
+**a)** Sistem işleyişinin gözlenmesi  
+**b)** Sistemin çevresinin belirlenmesi  
+- Sistemi hangi sistemler çevreliyor? 
+- Bu sistemlerle bağlantısı nedir?
+- Çevreden hangi girdiler alınır?
+- Nasıl işlenir?
+- Hangi çıktılar verilir?
+- Çevreden gelen kısıtlamalar var mıdır?
+
+**c)** Sistemi oluşturan bileşenlerin (alt sistemler) belirlenmesi (Bileşenlerin sistem amaçlarına etkisi- katkısı)   
+**d)** Bileşenler arasındaki ilişkinin belirlenmesi  
+- Alt sistemler birbirleri ile nasıl bir alış-verişte bulunur?
+- Ne için ve nasıl bir ilişki?
+- Girdi – çıktı nedir?  
+ 
+**e)** erilerin toplanması, işlenmesi, yorumlanması
+- Sistemin iç işleyişi  ve çevresine olan etkisini görebilmek için ihtiyaç duyulan verilerin toplanması, işlenmesi ve yorumlanması  
+
+
+**2. Problemin Belirlenmesi**  
+- Sistemin işleyişi esnasında ortaya çıkabilecek sorunlar saptanabilmeli
+- Genel ifade yerine anlaşılabilir problemler olarak belirlenmeli
+
+
+**3. Hedeflerin Belirlenmesi**  
+- Problemin belirlenmesi ile bu sorun veya sorunların giderilmesi için amaçlar ortaya çıkarılır
+- Sistemin işleyişini beklenen duruma getirmek için amaçların belirlenmesi gerekir. Kuralları:
+- Açık ve ölçülebilir olmalı
+- Amaç açık bir biçimde ortaya konmalı
+- Amaçlar ne oranda gerçekleşti? (karşılaştırma ölçütü)
+- Ölçülebilir ölçütler olmalı
+- Anlaşılabilir ve uyumlu olmalı
+- Her yöneticinin anlayacağı şekilde olmalı
+- Birbirleri ve sistem politikası ile uyumlu olmalı
+- Gerçekçi ve ulaşılabilir olmalı:
+- Kaynaklar ve olanaklara göre gerçekçi olmalı
+- «Amaçlar sisteme yön gösterecek uygunluğa sahip mi?» sorusunun cevabı «Evet» olmalı  
+
+**4. Alternatiflerin Araştırılması**  
+- Sistemin belirlenen amaçları gerçekleştirebilmek için seçeneklerin belirlenmesi gerekmekte
+- Analist, araştırmanın ne yürütülemeyecek kadar geniş ne de önemsenmeyecek şekilde küçük 
+olmamasına dikkat etmeli.
+- Araştırma konusu yapılan her alternatife ilişkin veri ve bilginin sağlanması gerekmektedir.
+
+**5. Seçeneklerin (Alternatiflerin) Değerlendirilmesi**  
+- Olası alternatiflerin değerlendirme ihtiyacı bulunmakta (Her seçeneğin ve sonucun)
+- Alternatiflerin amacı gerçekleştirmesi tek başına yeterli değil !
+- Aynı zamanda sistem işleyişini hangi yönde ve nasıl etkilediği önemlidir.
+- Her alternatif için sistem analizinin yanı sıra modelini de kurmak gerekir.
+- Böylelikle sistemi gerçek çalışma ortamına almadan önce değerlendirme imkanı sunar.
+
+**6. Alternatifin Seçilmesi**  
+- Alternatifler içinde en uygununun seçilmesi
+- Alternatiflerin değerlendirilmesi aşamasında:
+- Bir modele dayalı olarak elde edilen bilgilerle 
+- Amaçlar ve kısıtlamalar göz önünde bulundurularak
+- En uygun seçenek seçilir
+- «Tüm sistem açısından seçilen seçenek en uygun mu?» sorusunun cevabı «Evet» olmalı
+
+**7. Düzenleme – Dizayn**  
+- Seçilen seçeneğin uygulamaya konulabilmesi için:
+- gerekli faaliyetlerin belirlenmesi
+- bu faaliyetlerin diğer faaliyetlerle ilişkilendirilmesi için gerekli düzenlemelerin planlanması 
+yapılmalı
+
+**PERT tekniği**
+- PERT Tekniği (Program Evaluation and Review Technique)
+- Program değerlendirme ve gözden geçirme tekniği
+- Bir projedeki işler ve bu işlerin sürelerinin çıkarılması ile başlar.
+- Projedeki işlerin hangi işlere bağlı olduğu bulunur.
+- Sonrasında PERT diyagramı çizilir.
+- Projeyi yönetmeyi kolaylaştırır.
+
+![PERT Tekniği](./images/pert_tekniği.png)
+
+**8. Uygulama ve İzleme**  
+- Dizayn aşamasında hazırlanan plana göre faaliyetler uygulamaya konulur.
+- Uygulama esnasında sistem izlenmelidir.
+- Sistem plana uygun işliyor mu?
+- İzleme esnasında oluşacak aksaklıklar aniden giderilebilir. (Sistemin kendi kendini düzenlemesi)
+
+**9. Değerlendirme**
+- Sonuçların ve sistemin başarı durumu  değerlendirilir.
+- Daha önce belirlenen  amaç ve ölçütlere göre hedefler ne oranda gerçekleşti?
+
+
+
