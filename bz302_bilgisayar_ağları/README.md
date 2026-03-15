@@ -2,6 +2,7 @@
 
 ## İçerik
 
+- [Çalışırken Çıkardığım Not](SELF.md)
 - [Ch1 - Introduction](#introduction)
 - [Ch2 - Application Layer](#application-layer)
 - [Ch3 - Transport Layer](#transport-layer)
