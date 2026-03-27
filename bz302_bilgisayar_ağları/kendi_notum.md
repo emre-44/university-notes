@@ -819,3 +819,100 @@ En sık belirtilen kullanım amaçları (katılımcıların >%50'si tarafından 
 - **Karşılaştırma:** Kablolu 300+ Mbps'ye karşı mobil ~2 Mbps (çarpıcı fark).
 
 ---
+
+## 2.1 Uygulama Katmanı - Yukarıdan Aşağıya Yaklaşım
+
+#### 1. Giriş: Neden Uygulama Katmanıyla Başlıyoruz?
+- Uygulama katmanı, bir ağın **varoluş nedeni**dir (raison d'être).
+- Çalışmaya başlamak için ideal bir yerdir çünkü uygulamalar (web, e-posta vb.) günlük hayatımızdan tanıdığımız uygulamalardır ve HTTP gibi protokoller genellikle insan tarafından okunabilir niteliktedir.
+
+#### 2. Bölüm Hedefleri
+- **Kavramsal ve Pratik Yönler:** Uygulama katmanı protokollerinin hem teorisini hem de uygulamasını öğrenmek.
+- **Alttaki Hizmetler:** Uygulama katmanının, **taşıma katmanı** tarafından sağlanan hizmetlere dayandığını anlamak.
+- **Etkileşim Modelleri:** İki mimari paradigmayı keşfetmek:
+    - **İstemci-Sunucu Modeli:** Merkezi bir sunucuya dayanan geleneksel model.
+    - **Eşler Arası (P2P) Modeli:** Eşler arasında merkezi olmayan iletişim.
+- **Temel Protokoller ve Altyapı:**
+    - **HTTP:** Hiper Metin Aktarım Protokolü (web).
+    - **SMTP:** Basit Posta Aktarım Protokolü (e-posta).
+    - **DNS:** Alan Adı Sistemi (isim-IP adresi dönüşümü).
+
+#### 3. Uygulama Katmanının Temel Prensipleri
+
+**3.1. Uygulama Mimarileri**
+- **İstemci-Sunucu Modeli:**
+    - **Sunucu:** Sürekli açık, kalıcı IP adresine sahip.
+    - **İstemci:** Kesintili bağlantı, kalıcı IP yok. İstemciler birbirleriyle değil, yalnızca sunucu ile iletişim kurar.
+    - **Örnek:** Web tarayıcısı (istemci) ve web sunucusu.
+- **Eşler Arası (P2P) Modeli:**
+    - Merkezi bir sunucu yoktur.
+    - Eşler doğrudan iletişim kurar; hem hizmet talep eder hem de hizmet sunar.
+    - Eşler kesintili bağlanır ve IP adresleri değişebilir. Yönetimi daha karmaşıktır.
+    - **Örnek:** Dosya paylaşım uygulamaları.
+
+**3.2. Süreçler ve Soketler**
+- Bir ağ uygulaması, farklı cihazlarda çalışan birden fazla **süreçten** (process) oluşur.
+- Bu süreçler, **soketler** (socket) aracılığıyla mesajlarla iletişim kurar.
+- **Soket:** Uygulama katmanı ile taşıma katmanı arasındaki yazılım arayüzüdür. Bir "kapı" benzetmesi yapılabilir; süreç mesajları bu kapıdan gönderir ve alır.
+
+**3.3. Adresleme: IP ve Port Numaraları**
+- Bir sürece mesaj göndermek için iki bilgi gereklidir:
+    1.  **IP Adresi:** Hedef makineyi tanımlar.
+    2.  **Port Numarası:** Makinedeki doğru süreci (uygulamayı) tanımlar.
+- **Örnek:** Port 80 → Web sunucusu, Port 25 → E-posta sunucusu.
+
+**3.4. Uygulama Katmanı Protokolleri**
+- Bir protokol şunları tanımlar:
+    - **Mesaj Tipleri:** İstek, yanıt vb.
+    - **Sözdizim (Syntax):** Mesajdaki alanlar ve yapıları.
+    - **Anlam (Semantics):** Alanların anlamı.
+    - **Kurallar (Rules):** Mesajların ne zaman ve nasıl gönderileceği/alınacağı.
+- **Açık Protokoller:** RFC'lerle herkese açık (HTTP, SMTP).
+- **Özel (Proprietary) Protokoller:** Şirkete ait, kamuya açık değil (Zoom, Skype).
+
+#### 4. Taşıma Katmanı Hizmetleri (Uygulama Katmanına Sunulanlar)
+
+Uygulama ihtiyaçlarına göre taşıma katmanı çeşitli hizmetler sunabilir:
+
+| Hizmet Türü | Açıklama | Örnek Uygulamalar |
+| :--- | :--- | :--- |
+| **Güvenilir Veri Aktarımı** | Veri kaybı olmadan iletim. | Dosya transferi, web, e-posta |
+| **Zaman Garantisi** | Düşük gecikme gereksinimi. | VoIP, interaktif oyunlar |
+| **Bant Genişliği (Throughput)** | Belirli bir veri hızı garantisi. | Video streaming |
+| **Güvenlik** | Şifreleme, kimlik doğrulama. | Çevrimiçi bankacılık, alışveriş |
+
+#### 5. İnternette Taşıma Katmanı Protokolleri: TCP ve UDP
+
+İnternet taşıma katmanı yalnızca iki hizmet sunar:
+
+**5.1. TCP (Transmission Control Protocol)**
+- **Güvenilir Veri Aktarımı:** Kayıp yok.
+- **Akim Kontrolü (Flow Control):** Alıcıyı taşmaktan korur.
+- **Tıkanıklık Kontrolü (Congestion Control):** Ağı korumak için hızı ayarlar.
+- **Bağlantı Yönelimli (Connection-oriented):** Veri transferinden önce el sıkışması (handshaking) yapılır.
+- **Sunmadıkları:** Zaman, bant genişliği veya güvenlik garantisi.
+
+**5.2. UDP (User Datagram Protocol)**
+- **Güvenilmez Veri Aktarımı:** "En iyi çaba" (best effort) ile çalışır, kayıp olabilir.
+- **Sunmadıkları:** Akım kontrolü, tıkanıklık kontrolü, zaman, bant genişliği, güvenlik garantisi yoktur.
+- **Neden Var?** Hafif, hızlıdır. Güvenilirlik gibi ek hizmetler, ihtiyaç halinde **uygulama katmanında** geliştirilebilir.
+
+**Yaygın Protokollerin Kullandığı Taşıma Katmanı:**
+- TCP: HTTP, SMTP, FTP, Telnet
+- UDP: DNS, VoIP, video streaming, oyunlar
+
+#### 6. Güvenlik: TLS (Transport Layer Security)
+- İlk soketler (1980'ler) güvenlik özelliklerine sahip değildi (şifreleme, kimlik doğrulama yoktu).
+- **TLS:** TCP soketlerinin üzerine eklenen bir katmandır.
+- **Sağladıkları:** Şifreleme, veri bütünlüğü, uç nokta kimlik doğrulaması.
+- Günümüzde HTTPS (HTTP + TLS) ile yaygın olarak kullanılır.
+
+#### 7. Bölüm Özeti
+- Uygulama, etkileşim halindeki dağıtık süreçlerden oluşur.
+- İki temel mimari: **İstemci-Sunucu** ve **Eşler Arası (P2P)**.
+- Süreçler, **soketler** üzerinden mesajlarla iletişim kurar.
+- Adresleme için **IP adresi** ve **port numarası** kullanılır.
+- Taşıma katmanı **TCP** (güvenilir, bağlantı yönelimli) ve **UDP** (güvenilmez, bağlantısız) hizmetlerini sunar.
+- Güvenlik ihtiyaçları, **TLS** gibi ek katmanlarla sağlanır.
+
+**Bir Sonraki Konu:** Web ve HTTP protokolü detayları.
